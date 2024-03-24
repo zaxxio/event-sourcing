@@ -1,0 +1,12 @@
+spring:
+  application:
+    name: user.cmd.api
+
+axon:
+  axonserver:
+    context: AxonContext
+
+  eventhandling:
+    processors:
+      UserEventHandler:
+        mode: subscribing
