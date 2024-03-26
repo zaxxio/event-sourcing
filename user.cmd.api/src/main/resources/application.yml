@@ -1,11 +1,19 @@
 spring:
   application:
     name: user.cmd.api
-
+  datasource:
+    url: jdbc:postgresql://localhost:5432/db
+    driver-class-name: org.postgresql.Driver
+    username: user
+    password: password
+    name: postgresDatasource
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+    show-sql: false
+    properties:
+      hibernate.format_sql: false
 axon:
-  axonserver:
-    context: AxonContext
-
   eventhandling:
     processors:
       UserEventHandler:

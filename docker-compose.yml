@@ -1,5 +1,6 @@
 version: '3.8'
 services:
+  # Axon Configuration
   axonserver:
     container_name: axonserver
     image: axoniq/axonserver:latest
@@ -9,3 +10,22 @@ services:
     environment:
       - AXONIQ_AXONSERVER_NAME=axonserver
       - AXON_SERVER_HOSTNAME=axonserver
+  # Database Configuration
+  postgresql-master:
+    image: bitnami/postgresql
+    restart: always
+    ports:
+      - '5432:5432'
+    #    volumes:
+    #      - postgresql_master_data:/bitnami/postgresql
+    #      - ./db.sql:/docker-entrypoint-initdb.d/db.sql
+    environment:
+      - POSTGRESQL_PGAUDIT_LOG=READ,WRITE
+      - POSTGRESQL_LOG_HOSTNAME=true
+      - POSTGRESQL_REPLICATION_MODE=master
+      - POSTGRESQL_REPLICATION_USER=repl_user
+      - POSTGRESQL_REPLICATION_PASSWORD=repl_user
+      - POSTGRESQL_USERNAME=${DB_USERNAME}
+      - POSTGRESQL_PASSWORD=${DB_PASSWORD}
+      - POSTGRESQL_DATABASE=${DB_NAME}
+      - ALLOW_EMPTY_PASSWORD=yes
